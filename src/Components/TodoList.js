@@ -47,18 +47,7 @@ class TodoList extends React.Component {
         return (
             <div className='card'>
                 <div className='card-body'>
-                    <div className="form-group">
-                        <label  >Nhập công việc cần làm</label>
-                        <input id="txtTitle" className="form-control" type="text" name="" value={this.state.txtTitle} onChange={this.txtTitleOnChange}></input>
-                    </div>
-                    <div className="form-group">
-                        <label  >Thời gian thực hiện</label>
-                        <input id="txtTime" className="form-control" type="text" name="" value={this.state.txtTime} onChange={this.txtTimeOnChange}></input>
-                    </div>
-
-                    <div className="form-group">
-                        <input type="button" onClick={this.addTodoitem} className="btn btn-default" name='btnSubmit' id='btnSubmit' value="Tạo công việc mới" />
-                    </div>
+                    
                     <hr />
                     <ul className="list-group" id='todolist'>
                         {this.state.todolist.map(item => (

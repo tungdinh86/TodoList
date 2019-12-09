@@ -1,12 +1,12 @@
 import React from 'react';
-import TodoList from './Components/TodoList'
+import TodoListMain from './Components/TodoListMain'
 function App() {
 
   return (
     <div className='container'> 
       <div className='row  justify-content-center'>
         <div className='col col-6  '>
-          <TodoList />
+          <TodoListMain />
         </div>
       </div>
     </div>
