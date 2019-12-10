@@ -1,43 +1,50 @@
 import React from 'react'
+import Utilities from '../lib/utilities';
 
 class TodoInputBox extends React.Component {
   constructor(props) {
     super(props);
+    this.state = { value: '' }
+    this.onChange = this.onChange.bind(this);
+    this.onKeyDown = this.onKeyDown.bind(this);
   }
+
+  //txtTitle On Change
+  onChange(event) {
+    this.setState({ value: event.target.value });
+  }
+
+  onKeyDown(e) {
+    if (e.key === 'Enter') {
+      if (this.state.value.trim() === '') {
+        alert('Tên công việc không được phép để trống!');
+        return;
+      }
+      //item
+      var item = {
+        id: Utilities.randomKey(),
+        active: true,
+        title: this.state.value
+      }
+      // addnew todo item
+      this.props.doAddNewTodoItem(item);
+      //reset textbox
+      this.setState({ value: '' })
+    }
+  }
+
   render() {
     return (
       <>
         <div className="form-group">
           <label>Nhập công việc cần làm</label>
           <input
-            id="txtTitle"
             className="form-control"
             type="text"
-            name=""
-            value={this.props.txtTitle}
-            onChange={this.props.txtTitleOnChange} />
-        </div>
-        <div className="form-group">
-          <label>Thời gian thực hiện</label>
-          <input
-            id="txtTime"
-            className="form-control"
-            type="text"
-            name=""
-            value={this.props.txtTime}
-            onChange={this.props.txtTimeOnChange} />
-        </div>
-        <div className="form-group">
-          <input type="button"
-            className="btn btn-default"
-            name='btnSubmit'
-            id='btnSubmit'
-            value="Submit"
-            onClick={this.props.submit} />
-            <input type="button"
-            className="btn btn-default" 
-            value="Reset"
-            onClick={this.props.reset} />
+            onChange={this.onChange}
+            onKeyDown={this.onKeyDown}
+            value={this.state.value}
+          />
         </div>
       </>
     );

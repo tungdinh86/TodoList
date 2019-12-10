@@ -2,10 +2,6 @@ import React from 'react'
 import TodoItem from './Todoitem'
 
 class TodoListItems extends React.Component {
-	constructor(props) {
-		super(props);
-	}
-
 	render() {
 		return (
 			<ul className="list-group" id='todolist'>
@@ -14,11 +10,10 @@ class TodoListItems extends React.Component {
 						item => (
 							<TodoItem
 								key={item.id}
-								id={item.id}
-								title={item.title}
-								time={item.time}
-								editItem={this.props.editItem}
-								deleteItem={this.props.deleteItem} />
+								item={item}
+								onFinish={this.props.onFinish}
+								doEditTodoItem={this.props.doEditTodoItem}
+							/>
 						)
 					)
 				}
