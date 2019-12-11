@@ -1,17 +1,23 @@
 import React from 'react'
 import TodoInputBox from './TodoInputBox'
 import TodoListItems from './TodoListItems'
-import TodoDataItems from '../consts/TodoDataItems'
+import TodoDataItems from '../consts/TodoDataItems' 
 
 class TodoListMain extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      todolist: TodoDataItems
+      todolist: TodoDataItems,
+      count: 0
     };
     this.doAddNewTodoItem = this.doAddNewTodoItem.bind(this);
     this.onFinish = this.onFinish.bind(this);
     this.doEditTodoItem = this.doEditTodoItem.bind(this);
+    this.onCounter = this.onCounter.bind(this);
+  }
+
+  onCounter() {
+    this.setState({ count: this.state.count + 1 });
   }
 
   //addnew todo item
@@ -49,6 +55,9 @@ class TodoListMain extends React.Component {
             todolist={this.state.todolist}
             onFinish={this.onFinish}
             doEditTodoItem={this.doEditTodoItem} />
+          <br />
+          <button className="btn btn-success" onClick={this.onCounter}>Counter ++ </button> <br />
+          {this.state.count}
         </div>
       </div>
     );

@@ -34,10 +34,11 @@ class TodoInputBox extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return this.state.value !== nextState.value;
+    return this.state.value !== nextState.value
   }
 
   render() {
+    console.log('render');
     return (
       <div className="form-group">
         <label>Nhập công việc cần làm</label>

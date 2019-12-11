@@ -19,7 +19,7 @@ class TodoItem extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return this.props !== nextProps || this.state !== nextState;
+    return this.state.editMode !== nextState.editMode
   }
 
   render() {
