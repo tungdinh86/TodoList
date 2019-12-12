@@ -1,23 +1,22 @@
-import React from 'react'
+import React, { memo } from 'react'
 import TodoItem from './Todoitem'
 
-function TodoListItems(props) {
-	console.log('render todolist items');
+export default memo(function TodoListItems(props) {
 	return (
-		<ul className="list-group" id='todolist'>
-			{
-				props.todolist.map(
-					item => (
-						<TodoItem
-							key={item.id}
-							item={item}
-							onFinish={props.onFinish}
-							doEditTodoItem={props.doEditTodoItem} />
+		<div>
+			<ul className="list-group" id='todolist'>
+				{
+					props.todolist.map(
+						item => (
+							<TodoItem
+								key={item.id}
+								item={item}
+								onFinish={props.onFinish}
+								doEditTodoItem={props.doEditTodoItem} />
+						)
 					)
-				)
-			}
-		</ul>
+				}
+			</ul>
+		</div>
 	);
-}
-
-export default TodoListItems;
+});

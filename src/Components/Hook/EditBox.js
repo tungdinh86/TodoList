@@ -1,8 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, memo } from 'react'
 
-function EditBox(props) {
+export default memo(function EditBox(props) {
   const [value, setValue] = useState(props.item.title);
-
   const onChange = (event) => setValue(event.target.value);
 
   const onKeyDown = (event) => {
@@ -21,6 +20,7 @@ function EditBox(props) {
       props.onCloseEditBox();
     }
   }
+
   return (
     props.editMode ?
       <div className="form-group">
@@ -33,6 +33,4 @@ function EditBox(props) {
           value={value} />
       </div> : <></>
   );
-}
-
-export default EditBox;
+});

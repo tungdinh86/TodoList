@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, memo } from 'react'
 import EditBox from './EditBox'
-function TodoItem(props) {
+export default memo(function TodoItem(props) {
   const [editMode, setEditMode] = useState(false);
 
   const onCloseEditBox = () => setEditMode(false);
@@ -19,7 +19,7 @@ function TodoItem(props) {
       <i className='fa fa-trash-o' /> Hoàn thành
     </button>
   </>) : '';
-  //return
+
   return (
     <li className={`list-group-item ${activeClass} `}
       key={props.id} >
@@ -33,6 +33,4 @@ function TodoItem(props) {
       {btns}
     </li>
   );
-}
-
-export default TodoItem;
+});

@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, memo } from 'react'
 import Utilities from '../../lib/utilities';
 
-function TodoInputBox(props) {
+export default memo(function TodoInputBox(props) {
+  console.log('render input box');
   const [value, setValue] = useState('');
 
   const onChange = (event) => setValue(event.target.value);
@@ -23,6 +24,7 @@ function TodoInputBox(props) {
       setValue('');
     }
   }
+
   return (
     <div className="form-group">
       <label>Nhập công việc cần làm</label>
@@ -34,6 +36,4 @@ function TodoInputBox(props) {
         value={value} />
     </div>
   );
-}
-
-export default TodoInputBox;
+});
