@@ -1,23 +1,18 @@
-import React, { Component } from 'react'
-import A from './classA'
-import B from './classB'
-import FnA from './FnCompA'
+import React, { useState } from 'react'
 import FnB from './FnCompB'
-class Main extends Component {
-  render() {
-    return <div className="row">
+export default function Main() {
+  const [count, setCount] = useState(0);
+  const onClick = () => {
+    setCount(count + 1);
+  }
+  console.log('main render');
+  return (
+    <div className="row">
       <div className="col">
-        <div ><A /></div>
-        <hr />
-        <div ><B /></div>
-      </div>
-      <div className="col">
-        <div ><FnA /></div>
-        <hr />
         <div ><FnB /></div>
+        <button className="btn btn-success" onClick={onClick}>Click me!</button> <br />
+        {count}
       </div>
     </div>
-  }
-}
-
-export default Main;
+  )
+} 

@@ -1,17 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback, memo } from 'react'
 import Input from './InputFnComponent';
-export default function CompB() {
+export default memo(function CompB() {
   const [value, setValue] = useState('');
-  const [count, setCount] = useState(0);
-  const onCouterClick = () => {
-    setCount(count + 1);
-  }
-
+  const onChange = useCallback(function (e) { setValue(e.target.value) }, []);
+  console.log('comp B render');
   return (
     <div>
-      <Input onChange={e => setValue(e.target.value)} />
-      <p>The value is: {value}</p>
-      <button className="btn btn-success" onClick={onCouterClick}>Click me</button>
+      <Input onChange={onChange} />
     </div>
   );
 }
+) 
