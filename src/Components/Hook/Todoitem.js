@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import EditBox from './EditBox'
-function TodoItem(props) {
+function TodoItem(props) { 
   const [editMode, setEditMode] = useState(false);
 
   const onCloseEditBox = () => setEditMode(false);

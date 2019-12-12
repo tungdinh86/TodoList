@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { memo } from 'react'
 import TodoItem from './Todoitem'
 
-function TodoListItems(props) {
+export default memo(function TodoListItems(props) {
 	console.log('render todolist items');
 	return (
 		<ul className="list-group" id='todolist'>
@@ -18,6 +18,4 @@ function TodoListItems(props) {
 			}
 		</ul>
 	);
-}
-
-export default TodoListItems;
+});

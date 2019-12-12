@@ -2,9 +2,7 @@ import React, { useState } from 'react'
 
 function EditBox(props) {
   const [value, setValue] = useState(props.item.title);
-
   const onChange = (event) => setValue(event.target.value);
-
   const onKeyDown = (event) => {
     if (event.key === 'Enter') {
       if (value.trim() === '') {
