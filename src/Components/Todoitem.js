@@ -1,5 +1,6 @@
 import React, { useState, memo } from 'react'
 import EditBox from './EditBox'
+import TodoContext from './TodoContext';
 export default memo(function TodoItem(props) {
   const [editMode, setEditMode] = useState(false);
 
@@ -7,37 +8,45 @@ export default memo(function TodoItem(props) {
 
   const onEditClick = () => setEditMode(true);
 
-  const onFinshClick = () => {
-    //check editmode
-    if (editMode)
-      alert('Trạng thái công việc hiện tại không thể chuyển sang hoàn thành được');
-    else
-      props.onFinish(props.item.id);
-  }
-  const activeClass = props.item.active ? 'li-active' : 'li-deactive';
-  const btns = props.item.active ? (<>
-    <button className="text text-success"
-      onClick={onEditClick}>
-      <i className="fa fa-pencil" /> Sửa
-    </button>
-    <span>-</span>
-    <button className="text text-danger"
-      onClick={onFinshClick}>
-      <i className="fa fa-trash-o" /> Hoàn thành
-    </button>
-  </>) : '';
+  const onFinshClick = (context) => context.finshTodo(props.item.id);
 
+  const activeClass = props.item.active ? 'li-active' : 'li-deactive';
+
+  const showHideBtns = context => {
+    return (props.item.active ?
+      (<>
+        <button className="text text-success"
+          onClick={onEditClick}>
+          <i className="fa fa-pencil" /> Sửa
+        </button>
+        {btnFinish(context)}
+      </>) : <></>)
+  };
+
+  const btnFinish = context => {
+    return (!editMode ?
+      <><span>-</span>
+        <button className="text text-danger"
+          onClick={() => onFinshClick(context)}>
+          <i className="fa fa-trash-o" /> Hoàn thành
+        </button></>
+      : <></>)
+  };
   return (
-    <li className={`list-group-item ${activeClass} `}
-      key={props.id} >
-      {props.item.title}
-      <br />
-      <EditBox
-        item={props.item}
-        editMode={editMode}
-        onCloseEditBox={onCloseEditBox}
-        doEditTodoItem={props.doEditTodoItem} />
-      {btns}
-    </li>
+    <TodoContext.Consumer>
+      {context => (
+        <li className={`list-group-item ${activeClass} `}
+          key={props.id} >
+          {props.item.title}
+          <br />
+          <EditBox
+            item={props.item}
+            editMode={editMode}
+            onCloseEditBox={onCloseEditBox}
+            doEditTodoItem={props.doEditTodoItem} />
+          {showHideBtns(context)}
+        </li>
+      )}
+    </TodoContext.Consumer>
   );
 });

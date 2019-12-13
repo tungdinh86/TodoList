@@ -5,4 +5,5 @@ const TodoDataItems = [
   { id: Utilities.randomKey(), active: true, title: 'ăn trưa' },
   { id: Utilities.randomKey(), active: true, title: 'ăn tối' },
 ];
+
 export default TodoDataItems;
