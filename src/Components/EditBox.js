@@ -1,58 +1,36 @@
-import React from 'react'
+import React, { useState, memo } from 'react'
 
-class EditBox extends React.Component {
+export default memo(function EditBox(props) {
+  const [value, setValue] = useState(props.item.title);
+  const onChange = (event) => setValue(event.target.value);
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: this.props.item.title,
-    };
-    this.txtEditOnChange = this.txtEditOnChange.bind(this);
-    this.txtEditOnKeyDown = this.txtEditOnKeyDown.bind(this);
-  }
-
-  //txtEdit On Change
-  txtEditOnChange(event) {
-    this.setState({ value: event.target.value });
-  }
-
-  //txtEditOnKeyDown
-  txtEditOnKeyDown(event) {
+  const onKeyDown = (event) => {
     if (event.key === 'Enter') {
-      if (this.state.value.trim() === '') {
+      if (value.trim() === '') {
         alert('Tên công việc không được phép để trống!');
         return;
       }
       const item = {
-        id: this.props.item.id,
-        title: this.state.value
+        id: props.item.id,
+        title: value
       };
       // call doEditTodoItem function
-      this.props.doEditTodoItem(item);
-      // reset text box
-      this.setState({ value: this.props.item.title });
+      props.doEditTodoItem(item);
       // call close textbox function
-      this.props.onCloseEditBox();
+      props.onCloseEditBox();
     }
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return this.props !== nextProps || this.state !== nextState
-  }
-
-  render() {
-    const html = this.props.editMode ?
+  return (
+    props.editMode ?
       <div className="form-group">
         <input
           className="form-control"
           type="text"
           placeholder="Nhập tiêu đề công việc"
-          onChange={this.txtEditOnChange}
-          onKeyDown={this.txtEditOnKeyDown}
-          value={this.state.value} />
-      </div> : '';
-    return (<>{html}</>);
-  }
-}
-
-export default EditBox;
+          onChange={onChange}
+          onKeyDown={onKeyDown}
+          value={value} />
+      </div> : <></>
+  );
+});

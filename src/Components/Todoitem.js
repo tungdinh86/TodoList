@@ -1,57 +1,36 @@
-import React from 'react'
+import React, { useState, memo } from 'react'
 import EditBox from './EditBox'
-class TodoItem extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      editMode: false,
-    };
-    this.onCloseEditBox = this.onCloseEditBox.bind(this);
-  }
+export default memo(function TodoItem(props) {
+  const [editMode, setEditMode] = useState(false);
 
-  onCloseEditBox() {
-    this.setState({ editMode: false });
-  }
+  const onCloseEditBox = () => setEditMode(false);
 
-  onEditClick = () => {
-    // change edit
-    this.setState({ editMode: true });
-  }
+  const onEditClick = () => setEditMode(true);
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return this.props !== nextProps || this.state !== nextState;
-  }
+  const activeClass = props.item.active ? 'li-active' : 'li-deactive';
+  const btns = props.item.active ? (<>
+    <button className='text text-success'
+      onClick={onEditClick}>
+      <i className='fa fa-pencil' /> Sửa
+    </button>
+    <span>-</span>
+    <button className='text text-danger'
+      onClick={() => props.onFinish(props.item.id)}>
+      <i className='fa fa-trash-o' /> Hoàn thành
+    </button>
+  </>) : '';
 
-  render() {
-    const activeClass = this.props.item.active ? 'li-active' : 'li-deactive';
-    const btns = this.props.item.active ? (<>
-      <button
-        className='text text-success'
-        onClick={this.onEditClick}>
-        <i className='fa fa-pencil' /> Sửa
-        </button>
-      <span>-</span>
-      <button
-        className='text text-danger'
-        onClick={() => this.props.onFinish(this.props.item.id)}>
-        <i className='fa fa-trash-o' /> Hoàn thành
-         </button>
-    </>) : '';
-    //return
-    return (
-      <li className={`list-group-item ${activeClass} `}
-        key={this.props.id} >
-        {this.props.item.title}
-        <br />
-        <EditBox
-          item={this.props.item}
-          editMode={this.state.editMode}
-          onCloseEditBox={this.onCloseEditBox}
-          doEditTodoItem={this.props.doEditTodoItem} />
-        {btns}
-      </li>
-    );
-  }
-}
-
-export default TodoItem;
+  return (
+    <li className={`list-group-item ${activeClass} `}
+      key={props.id} >
+      {props.item.title}
+      <br />
+      <EditBox
+        item={props.item}
+        editMode={editMode}
+        onCloseEditBox={onCloseEditBox}
+        doEditTodoItem={props.doEditTodoItem} />
+      {btns}
+    </li>
+  );
+});
