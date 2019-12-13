@@ -4,11 +4,7 @@ import TodoListItems from './TodoListItems'
 import TodoDataItems from '../consts/TodoDataItems'
 
 function TodoListMain() {
-  const [todolist, setTodolist] = useState(TodoDataItems);
-  const [count, setCount] = useState(0);
-  const onCounterClick = () => {
-    setCount(count + 1);
-  }
+  const [todolist, setTodolist] = useState(TodoDataItems); 
   //addnew todo item
   const doAddNewTodoItem = useCallback(function (item) {
     //setState 
@@ -32,10 +28,7 @@ function TodoListMain() {
   //render 
   return (
     <div className="card">
-      <div className="card-body">
-        count = {count}
-        <button className="btn btn-success" onClick={onCounterClick}>CLick me now</button>
-        <hr />
+      <div className="card-body"> 
         <TodoInputBox
           doAddNewTodoItem={doAddNewTodoItem} />
         <hr />

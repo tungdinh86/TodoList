@@ -1,8 +1,7 @@
 import React, { useState, memo } from 'react'
 import Utilities from '../lib/utilities';
 
-export default memo(function TodoInputBox(props) {
-  console.log('render input box');
+export default memo(function TodoInputBox(props) { 
   const [value, setValue] = useState('');
 
   const onChange = (event) => setValue(event.target.value);
