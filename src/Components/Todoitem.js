@@ -1,30 +1,36 @@
-import React from 'react'
+import React, { useState, memo } from 'react'
+import EditBox from './EditBox'
+export default memo(function TodoItem(props) {
+  const [editMode, setEditMode] = useState(false);
 
-class TodoItem extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+  const onCloseEditBox = () => setEditMode(false);
 
-  render() {
-    return (
-      <li className="list-group-item  "
-        key={this.props.id}>
-        {this.props.title} - {this.props.time}
-        <br />
-        <button
-          className='text text-success'
-          onClick={() => this.props.editItem(this.props.id)}>
-          <i className='fa fa-pencil' /> Sửa
-        </button>
-        <span>-</span>
-        <button
-          className='text text-danger'
-          onClick={() => this.props.deleteItem(this.props.id)}>
-          <i className='fa   fa-trash-o' /> Xóa
-         </button>
-      </li>
-    );
-  }
-}
+  const onEditClick = () => setEditMode(true);
 
-export default TodoItem;
+  const activeClass = props.item.active ? 'li-active' : 'li-deactive';
+  const btns = props.item.active ? (<>
+    <button className='text text-success'
+      onClick={onEditClick}>
+      <i className='fa fa-pencil' /> Sửa
+    </button>
+    <span>-</span>
+    <button className='text text-danger'
+      onClick={() => props.onFinish(props.item.id)}>
+      <i className='fa fa-trash-o' /> Hoàn thành
+    </button>
+  </>) : '';
+
+  return (
+    <li className={`list-group-item ${activeClass} `}
+      key={props.id} >
+      {props.item.title}
+      <br />
+      <EditBox
+        item={props.item}
+        editMode={editMode}
+        onCloseEditBox={onCloseEditBox}
+        doEditTodoItem={props.doEditTodoItem} />
+      {btns}
+    </li>
+  );
+});
