@@ -31,8 +31,8 @@ function TodoListMain() {
 
   //render 
   return (
-    <div className='card'>
-      <div className='card-body'>
+    <div className="card">
+      <div className="card-body">
         count = {count}
         <button className="btn btn-success" onClick={onCounterClick}>CLick me now</button>
         <hr />
